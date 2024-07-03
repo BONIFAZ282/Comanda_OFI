@@ -1,0 +1,152 @@
+/* Reset general y configuración de fuente */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal */
+body {
+    display: flex;
+    height: 100%;
+}
+
+/* Barra lateral */
+.sidebar {
+    width: 240px;
+    background-color: #092839;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box; /* Asegura que el padding no expanda la barra lateral */
+    height: 100vh;
+}
+
+/* Logo */
+.logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+/* Barra de navegación */
+.navbar {
+    width: 100%;
+    margin-top: 120px; /* Espacio superior */
+}
+
+.navbar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    padding: 12px 0; /* Aumentamos el padding vertical */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.navbar .material-icons {
+    margin-right: 10px;
+}
+
+.navbar li:hover {
+    background-color: #34495e;
+    border-radius: 5px;
+    margin-bottom: 5px; /* Espacio inferior en el hover */
+}
+
+/* Botones inferiores */
+.bottom-buttons {
+    margin-top: auto;
+    width: 100%;
+    text-align: center;
+}
+
+/* Asegúrate de que los estilos estén disponibles globalmente */
+.inicio-button {
+    color: #34495e;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.inicio-button .material-icons,
+.logout .material-icons {
+    margin-right: 10px;
+}
+
+.inicio-button:hover,
+.logout:hover {
+    text-decoration: underline;
+}
+
+/* Separador */
+.divider {
+    width: 100%;
+    border-top: 1px solid #ffffff50;
+    margin-bottom: 10px;
+}
+
+/* Contenido principal */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    box-sizing: border-box; /* Asegura que el padding no expanda el contenido */
+    overflow: hidden; /* Evita el desplazamiento */
+}
+
+/* Encabezado */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaciado entre elementos */
+    margin-bottom: 20px; /* Separación del contenido principal */
+    padding: 10px 20px; /* Padding del encabezado */
+}
+
+header .inicio-button {
+    display: flex;
+    align-items: center;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1.2em; /* Tamaño de fuente más grande */
+}
+
+header .profile {
+    display: flex;
+    align-items: center;
+}
+
+header .profile .material-icons {
+    font-size: 2em; /* Tamaño de ícono más grande */
+    margin-right: 10px;
+    color: #2c3e50;
+}
+
+header .profile .username {
+    font-size: 1.2em; /* Tamaño de fuente más grande */
+    color: #2c3e50;
+}
+
+/* Flexbox para el contenido principal */
+#main-content {
+    display: flex;
+}

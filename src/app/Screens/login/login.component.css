@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+    background-image: url('./../../../assets/fondo2.png');
+  }
+  
+  .login-box {
+    display: flex;
+    width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-left {
+    flex: 1;
+    background: url('./../../../assets/login3.png') no-repeat center center;
+    background-size: cover;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 10); /* Sombra en el lado derecho e inferior */
+  }
+  
+  .login-right {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    padding-top: 10px; /* Ajusta este valor según tus necesidades */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0.20, 10); /* Sombra en el lado derecho e inferior */
+  }
+  
+  .login-right h2 {
+    margin-top: 5px; /* Ajusta este valor según tus necesidades */
+  }
+  
+  .login-right form {
+    margin-top: 10px; /* Ajusta este valor según tus necesidades */
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+    font-size: 32px;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #262e49;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200;
+    font-size: 15px;
+  }
+  
+  button:hover {
+    background-color: #1a1f3a;
+  }
+  
+  .error-message {
+    color: rgba(223, 15, 15, 0.719);
+    margin-top: 10px;
+  }
+  

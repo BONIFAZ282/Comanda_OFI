@@ -1,0 +1,73 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="../../../assets/logo4.png" alt="" class="logo">
+    </div>
+  </nav>
+
+  <div class="menu-container">
+    <div class="menu-header">
+      <h2>Comanda del Restaurante</h2>
+    </div>
+
+    <div class="menu-content">
+      <!-- Sección izquierda -->
+      <div class="left-section">
+        <!-- Sección para seleccionar mesa y trabajador -->
+        <div class="menu-section selection">
+          <h3>Seleccionar Mesa y Trabajador</h3>
+          <label>Mesa:</label>
+          <select [(ngModel)]="ID_MESA">
+            <option *ngFor="let mesa of mesas" [value]="mesa.ID_MESA">{{ mesa.NUMERO }}</option>
+          </select>
+          <label>Mesero:</label>
+          <select [(ngModel)]="ID_TRABAJADOR">
+            <option *ngFor="let trabajador of trabajadores" [value]="trabajador.ID_TRABAJADOR">{{ trabajador.NOMBRES }}</option>
+          </select>
+        </div>
+
+        <!-- Sección de categorías y menú -->
+        <div class="categories-menu-section">
+          <div class="menu-section categories">
+            <h3>Categorías</h3>
+            <ul>
+              <li *ngFor="let categoria of categorias" (click)="selectCategory(categoria.ID_CATEGORIA)">
+                {{ categoria.NOM_CATEGORIA }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="menu-section items">
+            <h3>Menú</h3>
+            <ul>
+              <li *ngFor="let item of filteredMenuItems" (click)="addToOrder(item)">
+                {{ item.NOMBRE }} - S/{{ item.PRECIO }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección del resumen del pedido -->
+      <div class="menu-section order-summary">
+        <h2>PEDIDO</h2>
+        <hr>
+        <div class="order-details">
+          <h3>Orden:</h3>
+          <ul>
+            <li *ngFor="let orderItem of order">
+              <div class="order-item">
+                <span class="item-name">{{ orderItem.item.NOMBRE }} ({{ orderItem.cantidad }})</span>
+                <span class="item-price">S/{{ orderItem.item.PRECIO * orderItem.cantidad }}</span>
+                <button class="remove-button" (click)="removeFromOrder(orderItem.item)">🗑️</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <hr>
+        <p><strong>TOTAL:</strong> S/{{ getTotal() }}</p>
+        <button class="order-button" (click)="finalizarPedido()">Finalizar Pedido</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<body>
+    <div class="sidebar">
+        <img src="../../../assets/logo4.png" alt="El Muelle" class="logo">
+        <nav class="navbar">
+            <ul>
+                <li (click)="navigateTo('categoria')"><span class="material-icons">menu_book</span> Categoría</li>
+                <li (click)="navigateTo('mesa')"><span class="material-icons">table_restaurant</span> Mesa</li>
+                <li (click)="navigateTo('plato')"><span class="material-icons">flatware</span> Plato</li>
+                <li (click)="navigateTo('trabajador')"><span class="material-icons">person</span> Trabajador</li>
+                <li (click)="navigateTo('cargo')"><span class="material-icons">badge</span> Cargo</li>
+            </ul>
+        </nav>
+        <div class="bottom-buttons">
+            <hr class="divider">
+            <a href="#" class="logout">
+                <span class="material-icons">logout</span> Logout
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <header>
+            <span class="inicio-button" (click)="navigateTo('principal')">
+                <span class="material-icons">home</span> Inicio
+            </span>
+            <div class="profile">
+                <span class="material-icons">account_circle</span>
+                <span class="username">Nombre Usuario</span>
+            </div>
+        </header>
+        <main id="main-content">
+            <router-outlet></router-outlet> 
+        </main>
+    </div>
+    
+</body>

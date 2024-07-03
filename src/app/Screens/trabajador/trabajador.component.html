@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<body>
+    <div class="sidebar">
+        <img src="../../../assets/logo4.png" alt="El Muelle" class="logo">
+        <nav class="navbar">
+            <ul>
+                <li [routerLink]="['/categoria']" [class.active]="isActive('/categoria')">
+                    <span class="material-icons">menu_book</span> Categoría
+                </li>
+                <li [routerLink]="['/mesa']" [class.active]="isActive('/mesa')">
+                    <span class="material-icons">table_restaurant</span> Mesa
+                </li>
+                <li [routerLink]="['/plato']" [class.active]="isActive('/plato')">
+                    <span class="material-icons">flatware</span> Plato
+                </li>
+                <li [routerLink]="['/trabajador']" [class.active]="isActive('/trabajador')">
+                    <span class="material-icons">person</span> Trabajador
+                </li>
+                <li [routerLink]="['/cargo']" [class.active]="isActive('/cargo')">
+                    <span class="material-icons">badge</span> Cargo
+                </li>
+            </ul>
+        </nav>
+        <div class="bottom-buttons">
+            <hr class="divider">
+            <a href="#" class="logout">
+                <span class="material-icons">logout</span> Logout
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <header>
+            <a href="#" class="inicio-button" [routerLink]="['/principal']">
+                <span class="material-icons">home</span> Inicio
+            </a>
+            <div class="profile">
+                <span class="material-icons">account_circle</span>
+                <span class="username">Nombre Usuario</span>
+            </div>
+        </header>
+        <main id="main-content">
+            <div class="inputs-section">
+                <input type="text" id="documento" name="documento" placeholder="Documento*">
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre*">
+                <input type="text" id="ap_paterno" name="ap_paterno" placeholder="Ap. Paterno*">
+                <input type="text" id="ap_materno" name="ap_materno" placeholder="Ap. Materno*">
+                <input type="text" id="telefono" name="telefono" placeholder="Teléfono*">
+                <input type="text" id="correo" name="correo" placeholder="Correo*">
+                <input type="text" id="rol" name="rol" placeholder="Rol*">
+                <button>Agregar</button>
+            </div>
+            <div class="table-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>DNI</th>
+                            <th>NOMBRE</th>
+                            <th>AP. PATERNO</th>
+                            <th>AP. MATERNO</th>
+                            <th>TELEFONO</th>
+                            <th>CORREO</th>
+                            <th>ROL</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of paginatedData(); let i = index">
+                            <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                            <td>{{ item.dni }}</td>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.paterno }}</td>
+                            <td>{{ item.materno }}</td>
+                            <td>{{ item.telefono }}</td>
+                            <td>{{ item.correo }}</td>
+                            <td>{{ item.rol }}</td>
+                            <td class="icon-cell">
+                                <span class="material-icons clickable edit-icon">edit</span>
+                                <span class="material-icons clickable delete-icon" (click)="confirmDelete(1)">delete</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span class="pagination-button" (click)="prevPage()" [class.disabled]="currentPage === 1">&#60;</span>
+                    <span>{{ currentPage }} / {{ totalPages() }}</span>
+                    <span class="pagination-button" (click)="nextPage()" [class.disabled]="currentPage === totalPages()">&#62;</span>
+                </div>
+            </div>
+        </main>
+    </div>    
+</body>
+
