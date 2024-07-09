@@ -118,39 +118,6 @@ body {
     overflow: hidden;
 }
 
-/* Encabezado */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-}
-
-header .inicio-button {
-    display: flex;
-    align-items: center;
-    color: #2c3e50;
-    text-decoration: none;
-    font-size: 1.2em;
-}
-
-header .profile {
-    display: flex;
-    align-items: center;
-}
-
-header .profile .material-icons {
-    font-size: 2em;
-    margin-right: 10px;
-    color: #2c3e50;
-}
-
-header .profile .username {
-    font-size: 1.2em;
-    color: #2c3e50;
-}
-
 /* Contenedor para la mesa y la tabla */
 .mesa-tabla-container {
     display: flex;
