@@ -14,4 +14,16 @@ export class MesaService {
   listarMesas(): Observable<Mesa[]> {
     return this.http.get<Mesa[]>(`${this.apiUrl}/mesa/list`);
   }
+
+  crearMesa(mesa: { NUMERO: number, CAPACIDAD: number }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/mesa/crear`, mesa);
+  }
+
+  actualizarMesa(mesa: { ID_MESA: number, NUMERO: number, CAPACIDAD: number }): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/mesa/actualizar`, mesa);
+  }
+
+  eliminarMesa(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/mesa/eliminar`, { ID_MESA: id });
+  }
 }

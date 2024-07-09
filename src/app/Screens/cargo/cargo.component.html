@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <body>
     <div class="sidebar">
         <img src="../../../assets/logo4.png" alt="El Muelle" class="logo">
@@ -38,37 +37,41 @@
                 <span class="username">Nombre Usuario</span>
             </div>
         </header>
+
         <main id="main-content">
-            <div class="cargo">
-                <input type="text" id="cargo-name" name="cargo-name" placeholder="Nombre del cargo*">
-                <button>Agregar</button>
-            </div>
-            <div class="table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>N°</th>
-                            <th>NOMBRE</th>                       
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of paginatedData(); let i = index">
-                            <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-                            <td>{{ item.nombre }}</td>                        
-                            <td class="icon-cell">
-                                <span class="material-icons clickable edit-icon">edit</span>
-                                <span class="material-icons clickable delete-icon" (click)="confirmDelete(1)">delete</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <span class="pagination-button" (click)="prevPage()" [class.disabled]="currentPage === 1">&#60;</span>
-                    <span>{{ currentPage }} / {{ totalPages() }}</span>
-                    <span class="pagination-button" (click)="nextPage()" [class.disabled]="currentPage === totalPages()">&#62;</span>
+            <div class="cargo-tabla-container">
+                <div class="cargo">
+                    <input type="text" id="cargo-nombre" [(ngModel)]="newRol.NOM_ROL" placeholder="Nombre del cargo*" class="form-control">
+                    <button (click)="agregarRol()">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+                    <button *ngIf="editMode" (click)="cancelarEdicion()">Cancelar</button>
+                </div>
+                <div class="table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Nombre del Cargo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of paginatedData(); let i = index">
+                                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                                <td>{{ item.NOM_ROL }}</td>
+                                <td class="icon-cell">
+                                    <span class="material-icons clickable edit-icon" (click)="editarRol(item)">edit</span>
+                                    <span class="material-icons clickable delete-icon" (click)="confirmDelete(item.ID_ROL)">delete</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span class="pagination-button" (click)="prevPage()" [class.disabled]="currentPage === 1">&#60;</span>
+                        <span>{{ currentPage }} / {{ totalPages() }}</span>
+                        <span class="pagination-button" (click)="nextPage()" [class.disabled]="currentPage === totalPages()">&#62;</span>
+                    </div>
                 </div>
             </div>
         </main>
-    </div>    
+    </div>
 </body>

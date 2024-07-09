@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    box-sizing: border-box; /* Asegura que el padding no expanda la barra lateral */
+    box-sizing: border-box;
     height: 100vh;
 }
 
@@ -35,7 +35,7 @@ body {
 /* Barra de navegación */
 .navbar {
     width: 100%;
-    margin-top: 120px; /* Espacio superior */
+    margin-top: 120px;
 }
 
 .navbar ul {
@@ -45,7 +45,7 @@ body {
 }
 
 .navbar li {
-    padding: 12px 0; /* Aumentamos el padding vertical */
+    padding: 12px 0;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -64,7 +64,7 @@ body {
 .navbar li:hover {
     background-color: #34495e;
     border-radius: 5px;
-    margin-bottom: 5px; /* Espacio inferior en el hover */
+    margin-bottom: 5px;
 }
 
 /* Botones inferiores */
@@ -74,7 +74,6 @@ body {
     text-align: center;
 }
 
-/* Asegúrate de que los estilos estén disponibles globalmente */
 .inicio-button {
     color: #34495e;
     text-decoration: none;
@@ -84,7 +83,7 @@ body {
     padding: 10px 15px;
     cursor: pointer;
 }
- 
+
 .logout {
     color: white;
     text-decoration: none;
@@ -115,17 +114,17 @@ body {
 .content {
     flex-grow: 1;
     padding: 20px;
-    box-sizing: border-box; /* Asegura que el padding no expanda el contenido */
-    overflow: hidden; /* Evita el desplazamiento */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Encabezado */
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Espaciado entre elementos */
-    margin-bottom: 20px; /* Separación del contenido principal */
-    padding: 10px 20px; /* Padding del encabezado */
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 10px 20px;
 }
 
 header .inicio-button {
@@ -133,7 +132,7 @@ header .inicio-button {
     align-items: center;
     color: #2c3e50;
     text-decoration: none;
-    font-size: 1.2em; /* Tamaño de fuente más grande */
+    font-size: 1.2em;
 }
 
 header .profile {
@@ -142,88 +141,121 @@ header .profile {
 }
 
 header .profile .material-icons {
-    font-size: 2em; /* Tamaño de ícono más grande */
+    font-size: 2em;
     margin-right: 10px;
     color: #2c3e50;
 }
 
 header .profile .username {
-    font-size: 1.2em; /* Tamaño de fuente más grande */
+    font-size: 1.2em;
     color: #2c3e50;
 }
 
-/* Estilo para la sección de inputs */
-.inputs-section {
-    flex: 1;
-    width: 300px; /* Ancho ajustado según necesidad */
+
+/* Contenedor para la plato y la tabla */
+.plato-tabla-container {
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Estilo para la plato */
+.plato {
+    display: flex;
+    padding: 30px;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-right: 20px; /* Espacio entre el input/botón y la tabla */
 }
 
-.inputs-section input {
-    width: 300px; /* Ajusta el ancho según necesidad */
+.plato input {
+    width: 300px; /* Ajusta el ancho según sea necesario */
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.inputs-section button {
-    width: 90px; /* Ajusta el ancho según necesidad */
-    padding: 10px 20px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.inputs-section button {
-    padding: 10px;
+.plato button {
+    padding: 10px 20px;
     background-color: #2c3e50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.inputs-section button:hover {
+.plato button:hover {
     background-color: #34495e;
 }
 
-/* Estilo para la sección de tabla ---------------*/
-.table-section {
-    flex: 2;
+/* Ajusta el estilo del select para que coincida con los inputs */
+.plato select.form-control {
+    width: 320px; /* Ajusta el ancho según sea necesario */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+/* Estilo para la tabla */
+.table {
+    flex-grow: 1;
     overflow-x: auto;
     margin-top: 20px;
-    
 }
 
-.table-section table {
+.table table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table-section th,
-.table-section td {
+.table th,
+.table td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
     color: #434444;
 }
 
-.table-section .clickable {
-    cursor: pointer;
-    font-size: 24px; 
-    margin-right: 10px;
-    color: #919497
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    width: 10%; /* Ancho para la primera columna */
 }
 
-.table-section .clickable:hover {
-    color: #34495e; 
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 20%; /* Ancho para la segunda columna */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 30%; /* Ancho para la tercera columna */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 10%; /* Ancho para la cuarta columna */
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+    width: 10%; /* Ancho para la quinta columna */
+}
+
+.table .clickable {
+    cursor: pointer;
+    font-size: 24px; /* Ajusta el tamaño del ícono según sea necesario */
+    margin-right: 10px; /* Espacio entre los íconos */
+    color: #919497; /* Color del ícono */
+}
+
+.table .clickable:hover {
+    color: #34495e; /* Color del ícono al pasar el ratón */
 }
 
 .icon-cell {
@@ -277,14 +309,28 @@ header .profile .username {
   .swal2-styled.swal2-confirm {
     background-color: #34495e !important;
     color: white !important;
-  }
+}
   
-  .swal2-styled.swal2-cancel {
+.swal2-styled.swal2-cancel {
     background-color: rgb(170, 34, 34) !important;
     color: white !important;
-  }
+}
 
 /* Flexbox para el contenido principal */
 #main-content {
     display: flex;
+}
+
+.clickable {
+    cursor: pointer;
+    color: #007bff;
+}
+  
+.edit-icon:hover, .delete-icon:hover {
+    color: #0056b3;
+}
+  
+.disabled {
+    pointer-events: none;
+    color: #c0c0c0;
 }

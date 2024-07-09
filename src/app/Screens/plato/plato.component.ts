@@ -1,34 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { PlatoService } from 'src/app/Service/plato.service';
+import { MenuItem, Categoria } from 'src/app/Config/iType';
 
 @Component({
   selector: 'app-plato',
   templateUrl: './plato.component.html',
   styleUrls: ['./plato.component.css']
 })
-export class PlatoComponent {
+export class PlatoComponent implements OnInit {
   showPlatoContent = false;
   itemsPerPage = 5;
   currentPage = 1;
+  data: MenuItem[] = [];
+  categorias: Categoria[] = [];
 
-  data = [
-    { id: 1, nombre: 'Plato 1', precio: '50', categoria: 'fondo' },
-    { id: 2, nombre: 'Plato 2', precio: '50', categoria: 'fondo' },
-    { id: 3, nombre: 'Plato 3', precio: '50', categoria: 'fondo' },
-    { id: 4, nombre: 'Plato 4', precio: '50', categoria: 'fondo' },
-    { id: 5, nombre: 'Plato 5', precio: '50', categoria: 'fondo' },
-    { id: 6, nombre: 'Plato 6', precio: '50', categoria: 'fondo' },
-    { id: 7, nombre: 'Plato 7', precio: '50', categoria: 'fondo' },
-    { id: 8, nombre: 'Plato 8', precio: '50', categoria: 'fondo' },
-    { id: 9, nombre: 'Plato 9', precio: '50', categoria: 'fondo' },
-    { id: 10, nombre: 'Plato 10', precio: '50', categoria: 'fondo' },
-  ];
+  newPlato = {
+    ID_CATEGORIA: 0,
+    NOMBRE: '',
+    DESCRIPCION: '',
+    PRECIO: 0
+  };
+  editMode: boolean = false;
+  editPlatoId: number | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private platoService: PlatoService) {}
 
-  navigateToPrincipal() {
-    this.router.navigate(['/principal']);
+  ngOnInit(): void {
+    this.listarPlatos();
+    this.listarCategorias();
+  }
+
+  navigateTo(route: string) {
+    this.router.navigate([`/${route}`]);
   }
 
   showPlato() {
@@ -37,6 +42,79 @@ export class PlatoComponent {
 
   isActive(url: string): boolean {
     return this.router.url === url;
+  }
+
+  listarPlatos() {
+    this.platoService.listarPlatos().subscribe((data: MenuItem[]) => {
+      this.data = data;
+    });
+  }
+
+  listarCategorias() {
+    this.platoService.listarCategorias().subscribe((data: Categoria[]) => {
+      this.categorias = data;
+    });
+  }
+
+  agregarPlato() {
+    if (this.editMode) {
+      this.actualizarPlato();
+    } else {
+      if (this.newPlato.NOMBRE.trim() && this.newPlato.PRECIO > 0 && this.newPlato.ID_CATEGORIA) {
+        this.platoService.crearPlato(this.newPlato).subscribe(response => {
+          Swal.fire({
+            icon: response.icon,
+            title: 'MENSAJE DEL SISTEMA',
+            text: response.text
+          });
+          if (response.statusCode === '201') {
+            this.listarPlatos();
+            this.newPlato = { ID_CATEGORIA: 0, NOMBRE: '', DESCRIPCION: '', PRECIO: 0 };
+          }
+        });
+      }
+    }
+  }
+
+  actualizarPlato() {
+    if (this.editPlatoId !== null && this.newPlato.NOMBRE.trim() && this.newPlato.PRECIO > 0 && this.newPlato.ID_CATEGORIA) {
+      this.platoService.actualizarPlato({
+        ID_PLATO: this.editPlatoId,
+        ID_CATEGORIA: this.newPlato.ID_CATEGORIA,
+        NOMBRE: this.newPlato.NOMBRE,
+        DESCRIPCION: this.newPlato.DESCRIPCION,
+        PRECIO: this.newPlato.PRECIO
+      }).subscribe(response => {
+        Swal.fire({
+          icon: response.icon,
+          title: 'MENSAJE DEL SISTEMA',
+          text: response.text
+        });
+        if (response.statusCode === '202') {
+          this.listarPlatos();
+          this.newPlato = { ID_CATEGORIA: 0, NOMBRE: '', DESCRIPCION: '', PRECIO: 0 };
+          this.editMode = false;
+          this.editPlatoId = null;
+        }
+      });
+    }
+  }
+
+  editarPlato(plato: MenuItem) {
+    this.newPlato = {
+      ID_CATEGORIA: plato.ID_CATEGORIA,
+      NOMBRE: plato.NOMBRE,
+      DESCRIPCION: plato.DESCRIPCION,
+      PRECIO: plato.PRECIO
+    };
+    this.editMode = true;
+    this.editPlatoId = plato.ID_PLATO;
+  }
+
+  cancelarEdicion() {
+    this.newPlato = { ID_CATEGORIA: 0, NOMBRE: '', DESCRIPCION: '', PRECIO: 0 };
+    this.editMode = false;
+    this.editPlatoId = null;
   }
 
   confirmDelete(id: number) {
@@ -51,19 +129,28 @@ export class PlatoComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteData(id);
-        Swal.fire(
-          '¡Eliminado!',
-          'El dato ha sido eliminado.',
-          'success'
-        );
+        this.eliminarPlato(id);
       }
     });
   }
 
-  deleteData(id: number) {
-    // Aquí va la lógica para eliminar el dato con el id proporcionado
-    console.log(`Dato con id ${id} eliminado.`);
+  eliminarPlato(id: number) {
+    this.platoService.eliminarPlato(id).subscribe(response => {
+      Swal.fire({
+        icon: response.icon,
+        title: 'MENSAJE DEL SISTEMA',
+        text: response.text
+      });
+      if (response.statusCode === '202') {
+        this.listarPlatos();
+      }
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se puede eliminar el plato porque está relacionado con un pedido'
+      });
+    });
   }
 
   paginatedData() {
@@ -86,5 +173,9 @@ export class PlatoComponent {
       this.currentPage--;
     }
   }
-}
 
+  getCategoriaNombre(id: number): string {
+    const categoria = this.categorias.find(cat => cat.ID_CATEGORIA === id);
+    return categoria ? categoria.NOM_CATEGORIA : '';
+  }
+}

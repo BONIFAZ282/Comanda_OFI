@@ -51,8 +51,9 @@
         <main id="main-content">
             <div class="categoria-tabla-container">
                 <div class="categoria">
-                    <input type="text" id="categoria-name" name="categoria-name" placeholder="Nombre de la categoría*">
-                    <button>Agregar</button>
+                    <input type="text" [(ngModel)]="newCategoria" placeholder="Nombre de la categoría*">
+                    <button (click)="agregarCategoria()">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+                    <button *ngIf="editMode" (click)="cancelarEdicion()">Cancelar</button>
                 </div>
                 <div class="table">
                     <table>
@@ -66,10 +67,10 @@
                         <tbody>
                             <tr *ngFor="let item of paginatedData(); let i = index">
                                 <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-                                <td>{{ item.nombre }}</td>                     
+                                <td>{{ item.NOM_CATEGORIA }}</td>                     
                                 <td class="icon-cell">
-                                    <span class="material-icons clickable edit-icon">edit</span>
-                                    <span class="material-icons clickable delete-icon" (click)="confirmDelete(item.id)">delete</span>
+                                    <span class="material-icons clickable edit-icon" (click)="editarCategoria(item)">edit</span>
+                                    <span class="material-icons clickable delete-icon" (click)="confirmDelete(item.ID_CATEGORIA)">delete</span>
                                 </td>
                             </tr>
                         </tbody>

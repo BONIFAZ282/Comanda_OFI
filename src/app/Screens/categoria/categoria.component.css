@@ -295,3 +295,18 @@ header .profile .username {
 #main-content {
     display: flex;
 }
+
+
+.clickable {
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .edit-icon:hover, .delete-icon:hover {
+    color: #0056b3;
+  }
+  
+  .disabled {
+    pointer-events: none;
+    color: #c0c0c0;
+  }

@@ -154,27 +154,19 @@ header .profile .username {
 
 /* Estilo para la sección de inputs */
 .inputs-section {
-    flex: 1;
-    width: 300px; /* Ancho ajustado según necesidad */
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-right: 20px;
 }
 
-.inputs-section input {
+.inputs-section input,
+.inputs-section select {
     width: 300px; /* Ajusta el ancho según necesidad */
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.inputs-section button {
-    width: 90px; /* Ajusta el ancho según necesidad */
-    padding: 10px 20px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -182,12 +174,13 @@ header .profile .username {
 }
 
 .inputs-section button {
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #2c3e50;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .inputs-section button:hover {
@@ -196,14 +189,13 @@ header .profile .username {
 
 /* Estilo para la sección de tabla */
 .table-section {
-    flex: 2;
-    margin-top: 20px;
+    flex-grow: 1;
     overflow-x: auto;
-    width: 50px;
+    margin-top: 20px;
 }
 
 .table-section table {
-    width: 180%;
+    width: 100%;
     border-collapse: collapse;
 }
 
@@ -213,58 +205,57 @@ header .profile .username {
     border: 1px solid #ddd;
     text-align: left;
     color: #434444;
-    
 }
 
 .table-section th:nth-child(1),
 .table-section td:nth-child(1) {
-    width: 5%; /* Ancho para la primera columna (Número) */
+    width: 10%; /* Ancho para la primera columna */
 }
 
 .table-section th:nth-child(2),
 .table-section td:nth-child(2) {
-    width: 10%; /* Ancho para la segunda columna (DNI) */
+    width: 10%; /* Ancho para la segunda columna */
 }
 
 .table-section th:nth-child(3),
 .table-section td:nth-child(3) {
-    width: 15%; /* Ancho para la tercera columna (Nombre) */
+    width: 15%; /* Ancho para la tercera columna */
 }
 
 .table-section th:nth-child(4),
 .table-section td:nth-child(4) {
-    width: 15%; /* Ancho para la cuarta columna (Ap. Paterno) */
+    width: 15%; /* Ancho para la cuarta columna */
 }
 
 .table-section th:nth-child(5),
 .table-section td:nth-child(5) {
-    width: 15%; /* Ancho para la quinta columna (Ap. Materno) */
+    width: 15%; /* Ancho para la quinta columna */
 }
 
 .table-section th:nth-child(6),
 .table-section td:nth-child(6) {
-    width: 10%; /* Ancho para la sexta columna (Teléfono) */
+    width: 10%; /* Ancho para la sexta columna */
 }
 
 .table-section th:nth-child(7),
 .table-section td:nth-child(7) {
-    width: 15%; /* Ancho para la séptima columna (Correo) */
+    width: 15%; /* Ancho para la séptima columna */
 }
 
 .table-section th:nth-child(8),
 .table-section td:nth-child(8) {
-    width: 10%; /* Ancho para la octava columna (Rol) */
+    width: 10%; /* Ancho para la octava columna */
 }
 
 .table-section .clickable {
     cursor: pointer;
-    font-size: 24px; 
-    margin-right: 10px;
-    color: #919497;
+    font-size: 24px; /* Ajusta el tamaño del ícono según sea necesario */
+    margin-right: 10px; /* Espacio entre los íconos */
+    color: #919497; /* Color del ícono */
 }
 
 .table-section .clickable:hover {
-    color: #34495e; 
+    color: #34495e; /* Color del ícono al pasar el ratón */
 }
 
 .icon-cell {
@@ -281,7 +272,7 @@ header .profile .username {
     align-items: center;
     margin-top: 20px;
     gap: 10px;
-    justify-content:flex-end;
+    justify-content: flex-end;
 }
 
 .pagination button {
@@ -313,20 +304,19 @@ header .profile .username {
 /* Alerta ELIMINAR */
 .swal2-popup {
     font-size: 1.6rem !important;
-  }
+}
   
-  .swal2-styled.swal2-confirm {
+.swal2-styled.swal2-confirm {
     background-color: #34495e !important;
     color: white !important;
-  }
+}
   
-  .swal2-styled.swal2-cancel {
+.swal2-styled.swal2-cancel {
     background-color: rgb(170, 34, 34) !important;
     color: white !important;
-  }
+}
 
 /* Flexbox para el contenido principal */
 #main-content {
     display: flex;
 }
-

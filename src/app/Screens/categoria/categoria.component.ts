@@ -1,31 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { CategoriaService } from 'src/app/Service/categoria.service';
+import { Categoria } from 'src/app/Config/iType';
 
 @Component({
   selector: 'app-categoria',
   templateUrl: './categoria.component.html',
   styleUrls: ['./categoria.component.css']
 })
-export class CategoriaComponent {
+export class CategoriaComponent implements OnInit {
   showCategoryContent = false;
   itemsPerPage = 5;
   currentPage = 1;
+  data: Categoria[] = [];
 
-  data = [
-    { id: 1, nombre: 'Categoria 1'},
-    { id: 2, nombre: 'Categoria 2'},
-    { id: 3, nombre: 'Categoria 3'},
-    { id: 4, nombre: 'Categoria 4'},
-    { id: 5, nombre: 'Categoria 5'},
-    { id: 6, nombre: 'Categoria 6'},
-    { id: 7, nombre: 'Categoria 7'},
-    { id: 8, nombre: 'Categoria 8'},
-    { id: 9, nombre: 'Categoria 9'},
-    { id: 10, nombre: 'Categoria 10'},
-  ];
+  newCategoria: string = '';
+  editMode: boolean = false;
+  editCategoriaId: number | null = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private categoriaService: CategoriaService) {}
+
+  ngOnInit(): void {
+    this.listarCategorias();
+  }
 
   navigateTo(route: string) {
     this.router.navigate([`/${route}`]);
@@ -37,6 +35,65 @@ export class CategoriaComponent {
 
   isActive(url: string): boolean {
     return this.router.url === url;
+  }
+
+  listarCategorias() {
+    this.categoriaService.listarCategorias().subscribe((data: Categoria[]) => {
+      this.data = data;
+    });
+  }
+
+  agregarCategoria() {
+    if (this.editMode) {
+      this.actualizarCategoria();
+    } else {
+      if (this.newCategoria.trim()) {
+        this.categoriaService.crearCategoria({ NOM_CATEGORIA: this.newCategoria }).subscribe(response => {
+          Swal.fire({
+            icon: response.icon,
+            title: 'MENSAJE DEL SISTEMA',
+            text: response.text
+          });
+          if (response.statusCode === '201') {
+            this.listarCategorias();
+            this.newCategoria = '';
+          }
+        });
+      }
+    }
+  }
+
+  actualizarCategoria() {
+    if (this.editCategoriaId !== null && this.newCategoria.trim()) {
+      this.categoriaService.actualizarCategoria({
+        ID_CATEGORIA: this.editCategoriaId,
+        NOM_CATEGORIA: this.newCategoria
+      }).subscribe(response => {
+        Swal.fire({
+          icon: response.icon,
+          title: 'MENSAJE DEL SISTEMA',
+          text: response.text
+        });
+        if (response.statusCode === '202') {
+          this.listarCategorias();
+          this.newCategoria = '';
+          this.editMode = false;
+          this.editCategoriaId = null;
+        }
+      });
+    }
+  }
+
+  editarCategoria(categoria: Categoria) {
+    this.newCategoria = categoria.NOM_CATEGORIA;
+    this.editMode = true;
+    this.editCategoriaId = categoria.ID_CATEGORIA;
+  }
+
+  cancelarEdicion() {
+    this.newCategoria = '';
+    this.editMode = false;
+    this.editCategoriaId = null;
   }
 
   confirmDelete(id: number) {
@@ -51,18 +108,28 @@ export class CategoriaComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteData(id);
-        Swal.fire(
-          '¡Eliminado!',
-          'El dato ha sido eliminado.',
-          'success'
-        );
+        this.eliminarCategoria(id);
       }
     });
   }
 
-  deleteData(id: number) {
-    console.log(`Dato con id ${id} eliminado.`);
+  eliminarCategoria(id: number) {
+    this.categoriaService.eliminarCategoria(id).subscribe(response => {
+      Swal.fire({
+        icon: response.icon,
+        title: 'MENSAJE DEL SISTEMA',
+        text: response.text
+      });
+      if (response.statusCode === '202') {
+        this.listarCategorias();
+      }
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se puede eliminar la categoría porque está relacionada con un plato'
+      });
+    });
   }
 
   paginatedData() {

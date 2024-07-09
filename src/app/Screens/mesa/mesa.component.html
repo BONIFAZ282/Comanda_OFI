@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <body>
     <div class="sidebar">
         <img src="../../../assets/logo4.png" alt="El Muelle" class="logo">
@@ -42,25 +41,29 @@
         <main id="main-content">
             <div class="mesa-tabla-container">
                 <div class="mesa">
-                    <input type="text" id="mesa-name" name="mesa-name" placeholder="Número de la mesa*">
-                    <button>Agregar</button>
+                    <input type="number" id="mesa-numero" [(ngModel)]="numeroMesa" placeholder="Número de la mesa*">
+                    <input type="number" id="mesa-capacidad" [(ngModel)]="capacidadMesa" placeholder="Capacidad de la mesa*">
+                    <button (click)="agregarMesa()">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+                    <button *ngIf="editMode" (click)="cancelarEdicion()">Cancelar</button>
                 </div>
                 <div class="table">
                     <table>
                         <thead>
                             <tr>
                                 <th>N°</th>
-                                <th>NOMBRE</th>
+                                <th>Número de Mesa</th>
+                                <th>Capacidad</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of paginatedData(); let i = index">
                                 <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-                                <td>{{ item.nombre }}</td>
+                                <td>{{ item.NUMERO }}</td>
+                                <td>{{ item.CAPACIDAD }}</td>
                                 <td class="icon-cell">
-                                    <span class="material-icons clickable edit-icon">edit</span>
-                                    <span class="material-icons clickable delete-icon" (click)="confirmDelete(1)">delete</span>
+                                    <span class="material-icons clickable edit-icon" (click)="editarMesa(item)">edit</span>
+                                    <span class="material-icons clickable delete-icon" (click)="confirmDelete(item.ID_MESA)">delete</span>
                                 </td>
                             </tr>
                         </tbody>

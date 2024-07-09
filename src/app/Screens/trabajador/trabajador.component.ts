@@ -1,34 +1,124 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { TrabajadorService } from 'src/app/Service/trabajador.service';
+import { RolService } from 'src/app/Service/rol.service';
+import { Trabajador, Rol } from 'src/app/Config/iType';
 
 @Component({
   selector: 'app-trabajador',
   templateUrl: './trabajador.component.html',
   styleUrls: ['./trabajador.component.css']
 })
-export class TrabajadorComponent {
+export class TrabajadorComponent implements OnInit {
   showTrabajadorContent = false;
   itemsPerPage = 5;
   currentPage = 1;
+  data: Trabajador[] = [];
+  roles: Rol[] = [];
 
-  data = [
-    { id: 1, dni: '12345678', nombre: 'Juan', paterno: 'Lopez', materno: 'Vera', telefono: '123456789', correo: 'example@gmail.com', rol: 'administrador' },
-    { id: 2, dni: '12345678', nombre: 'Juan', paterno: 'Lopez', materno: 'Vera', telefono: '123456789', correo: 'example@gmail.com', rol: 'administrador' },
-  ];
+  newTrabajador: Trabajador = {
+    ID_TRABAJADOR: 0,
+    ID_ROL: 0,
+    ROL: '',
+    ID_PERSONA: 0,
+    NOMBRES: '',
+    APPATERNO: '',
+    APMATERNO: '',
+    DOCUMENTO: '',
+    CORREO: '',
+    TELEFONO: '',
+    ID_USUARIO: 0,
+    ID_PRIVILEGIO: 0,
+    CONTRASENIA: ''
+  };
+  editMode: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private trabajadorService: TrabajadorService,
+    private rolService: RolService
+  ) {}
 
-  navigateToPrincipal() {
-    this.router.navigate(['/principal']);
+  ngOnInit(): void {
+    this.listarTrabajadores();
+    this.listarRoles();
   }
 
-  showTrabajador() {
-    this.showTrabajadorContent = true;
+  navigateTo(route: string) {
+    this.router.navigate([`/${route}`]);
   }
 
   isActive(url: string): boolean {
     return this.router.url === url;
+  }
+
+  listarTrabajadores() {
+    this.trabajadorService.listarTrabajadores().subscribe((data: Trabajador[]) => {
+      this.data = data;
+    });
+  }
+
+  listarRoles() {
+    this.rolService.listarRoles().subscribe((roles: Rol[]) => {
+      this.roles = roles;
+    });
+  }
+
+  agregarTrabajador() {
+    if (this.editMode) {
+      this.actualizarTrabajador();
+    } else {
+      this.trabajadorService.crearTrabajador(this.newTrabajador).subscribe(response => {
+        Swal.fire({
+          icon: response.icon,
+          title: 'MENSAJE DEL SISTEMA',
+          text: response.text
+        });
+        if (response.statusCode === '201') {
+          this.listarTrabajadores();
+          this.cancelarEdicion(); // Resetear el formulario
+        }
+      });
+    }
+  }
+
+  actualizarTrabajador() {
+    this.trabajadorService.actualizarTrabajador(this.newTrabajador).subscribe(response => {
+      Swal.fire({
+        icon: response.icon,
+        title: 'MENSAJE DEL SISTEMA',
+        text: response.text
+      });
+      if (response.statusCode === '202') {
+        this.listarTrabajadores();
+        this.cancelarEdicion();
+      }
+    });
+  }
+
+  editarTrabajador(trabajador: Trabajador) {
+    this.newTrabajador = { ...trabajador };
+    this.editMode = true;
+  }
+
+  cancelarEdicion() {
+    this.newTrabajador = {
+      ID_TRABAJADOR: 0,
+      ID_ROL: 0,
+      ROL: '',
+      ID_PERSONA: 0,
+      NOMBRES: '',
+      APPATERNO: '',
+      APMATERNO: '',
+      DOCUMENTO: '',
+      CORREO: '',
+      TELEFONO: '',
+      ID_USUARIO: 0,
+      ID_PRIVILEGIO: 0,
+      CONTRASENIA: ''
+    };
+    this.editMode = false;
   }
 
   confirmDelete(id: number) {
@@ -43,20 +133,30 @@ export class TrabajadorComponent {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.deleteData(id);
-        Swal.fire(
-          '¡Eliminado!',
-          'El dato ha sido eliminado.',
-          'success'
-        );
+        this.eliminarTrabajador(id);
       }
     });
   }
 
-  deleteData(id: number) {
-    // Aquí va la lógica para eliminar el dato con el id proporcionado
-    console.log(`Dato con id ${id} eliminado.`);
-  }
+  eliminarTrabajador(id: number) {
+    this.trabajadorService.eliminarTrabajador(id).subscribe(response => {
+        Swal.fire({
+            icon: response.icon,
+            title: 'MENSAJE DEL SISTEMA',
+            text: response.text
+        });
+        if (response.statusCode === '200') {
+            this.data = this.data.filter(item => item.ID_TRABAJADOR !== id); // Eliminar el trabajador de la tabla
+        }
+    }, error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se puede eliminar el trabajador'
+        });
+    });
+}
+
 
   paginatedData() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -79,5 +179,3 @@ export class TrabajadorComponent {
     }
   }
 }
-
-
