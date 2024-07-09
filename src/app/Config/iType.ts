@@ -61,3 +61,15 @@ export interface Rol {
   ID_ROL: number;
   NOM_ROL: string;
 }
+
+
+export interface Usuario {
+  DOCUMENTO: string;
+  NOMBRES: string;
+  APPATERNO: string;
+  APMATERNO: string;
+  PASSWORD: string;
+  NOMBRE_ROL: string;
+  token?: string; // Asegúrate de que el token está incluido
+}
+

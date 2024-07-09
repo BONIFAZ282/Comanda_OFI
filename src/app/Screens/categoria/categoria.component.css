@@ -1,5 +1,6 @@
 /* Reset general y configuración de fuente */
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -52,9 +53,10 @@ body {
 }
 
 .navbar li.active {
-    background-color: #d9dddf; /* Color activo */
+    background-color: #d9dddf;
+    /* Color activo */
     border-radius: 5px;
-    color: #092839;  
+    color: #092839;
 }
 
 .navbar .material-icons {
@@ -166,11 +168,13 @@ header .profile .username {
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
-    margin-right: 20px; /* Espacio entre el input/botón y la tabla */
+    margin-right: 20px;
+    /* Espacio entre el input/botón y la tabla */
 }
 
 .categoria input {
-    width: 300px; /* Ajusta el ancho según sea necesario */
+    width: 300px;
+    /* Ajusta el ancho según sea necesario */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -214,30 +218,36 @@ header .profile .username {
 
 .table th:nth-child(1),
 .table td:nth-child(1) {
-    width: 10%; /* Ancho para la primera columna */
+    width: 10%;
 }
 
 .table th:nth-child(2),
 .table td:nth-child(2) {
-    width: 70%; /* Ancho para la segunda columna */
+    width: 70%;
+    /* Ancho para la segunda columna */
 }
 
 .table .clickable {
     cursor: pointer;
-    font-size: 24px; /* Ajusta el tamaño del ícono según sea necesario */
-    margin-right: 10px; /* Espacio entre los íconos */
-    color: #919497; /* Color del ícono */
+    font-size: 24px;
+    /* Ajusta el tamaño del ícono según sea necesario */
+    margin-right: 10px;
+    /* Espacio entre los íconos */
+    color: #919497;
+    /* Color del ícono */
 }
 
 .table .clickable:hover {
-    color: #34495e; /* Color del ícono al pasar el ratón */
+    color: #34495e;
+    /* Color del ícono al pasar el ratón */
 }
 
 .icon-cell {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Espacio entre los iconos */
+    gap: 10px;
+    /* Espacio entre los iconos */
 }
 
 /* Paginación */
@@ -247,7 +257,7 @@ header .profile .username {
     align-items: center;
     margin-top: 20px;
     gap: 10px;
-    justify-content:flex-end;
+    justify-content: flex-end;
 }
 
 .pagination button {
@@ -279,17 +289,17 @@ header .profile .username {
 /* Alerta ELIMINAR */
 .swal2-popup {
     font-size: 1.6rem !important;
-  }
-  
-  .swal2-styled.swal2-confirm {
+}
+
+.swal2-styled.swal2-confirm {
     background-color: #34495e !important;
     color: white !important;
-  }
-  
-  .swal2-styled.swal2-cancel {
+}
+
+.swal2-styled.swal2-cancel {
     background-color: rgb(170, 34, 34) !important;
     color: white !important;
-  }
+}
 
 /* Flexbox para el contenido principal */
 #main-content {
@@ -300,13 +310,29 @@ header .profile .username {
 .clickable {
     cursor: pointer;
     color: #007bff;
-  }
-  
-  .edit-icon:hover, .delete-icon:hover {
+}
+
+.edit-icon:hover,
+.delete-icon:hover {
     color: #0056b3;
-  }
-  
-  .disabled {
+}
+
+.disabled {
     pointer-events: none;
     color: #c0c0c0;
-  }
+}
+
+/* Agrega este estilo al final de tu archivo CSS */
+.initial {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background-color: #34495e;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 10px;
+}

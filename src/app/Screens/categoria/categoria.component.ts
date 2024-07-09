@@ -14,15 +14,21 @@ export class CategoriaComponent implements OnInit {
   itemsPerPage = 5;
   currentPage = 1;
   data: Categoria[] = [];
-
   newCategoria: string = '';
   editMode: boolean = false;
   editCategoriaId: number | null = null;
+
+  nombreUsuario: string = '';
+  apellidoPaterno: string = '';
+  inicialNombre: string = '';
 
   constructor(private router: Router, private categoriaService: CategoriaService) {}
 
   ngOnInit(): void {
     this.listarCategorias();
+    this.nombreUsuario = localStorage.getItem('nombre') || '';
+    this.apellidoPaterno = localStorage.getItem('apellidoPaterno') || '';
+    this.inicialNombre = this.nombreUsuario.charAt(0).toUpperCase();
   }
 
   navigateTo(route: string) {

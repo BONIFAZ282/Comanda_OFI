@@ -11,13 +11,15 @@ import { TrabajadorComponent } from './Screens/trabajador/trabajador.component';
 import { CargoComponent } from './Screens/cargo/cargo.component';
 import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
+import { AuthGuard } from './guards/auth.guard';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
-  { path: 'principal', component: PrincipalComponent },
-  { path: 'general', component: GeneralComponent },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'principal', component: PrincipalComponent, canActivate: [AuthGuard] },
+  { path: 'general', component: GeneralComponent, canActivate: [AuthGuard] },
   { path: 'categoria', component: CategoriaComponent },
   { path: 'mesa', component: MesaComponent },
   { path: 'plato', component: PlatoComponent },

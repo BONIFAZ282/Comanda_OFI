@@ -6,7 +6,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';  // Asegúrate de importar FormsModule aquí
 
-
+import { AuthGuard } from './guards/auth.guard';
+import { UsuarioService } from './Service/usuario.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GeneralComponent } from './Screens/general/general.component';
@@ -20,6 +21,7 @@ import { TrabajadorComponent } from './Screens/trabajador/trabajador.component';
 import { CargoComponent } from './Screens/cargo/cargo.component';
 import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/tra
     TrabajadorComponent,
     CargoComponent,
     CocineroComponent,
-    TrabajadorDashboardComponent
+    TrabajadorDashboardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/tra
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [AuthGuard, UsuarioService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
