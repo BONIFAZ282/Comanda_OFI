@@ -20,15 +20,13 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
   { path: 'principal', component: PrincipalComponent, canActivate: [AuthGuard] },
   { path: 'general', component: GeneralComponent, canActivate: [AuthGuard] },
-  { path: 'categoria', component: CategoriaComponent },
-  { path: 'mesa', component: MesaComponent },
-  { path: 'plato', component: PlatoComponent },
-  { path: 'trabajador', component: TrabajadorComponent },
-  { path: 'cargo', component: CargoComponent },
-  { path: 'cocinero', component: CocineroComponent },
-  { path: 'trabajador-dashboard', component: TrabajadorDashboardComponent },
-
-
+  { path: 'categoria', component: CategoriaComponent, canActivate: [AuthGuard] },
+  { path: 'mesa', component: MesaComponent, canActivate: [AuthGuard] },
+  { path: 'plato', component: PlatoComponent, canActivate: [AuthGuard] },
+  { path: 'trabajador', component: TrabajadorComponent, canActivate: [AuthGuard] },
+  { path: 'cargo', component: CargoComponent, canActivate: [AuthGuard] },
+  { path: 'cocinero', component: CocineroComponent, canActivate: [AuthGuard] },
+  { path: 'trabajador-dashboard', component: TrabajadorDashboardComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -22,13 +22,14 @@ export class LoginComponent {
           // Guardar el token y la información del usuario en localStorage
           localStorage.setItem('token', response[0].token);
           localStorage.setItem('nombre', response[0].NOMBRES);
+          localStorage.setItem('rol', response[0].NOMBRE_ROL); // Asegúrate de que el nombre del campo coincide
           localStorage.setItem('apellidoPaterno', response[0].APPATERNO);
 
           // Mostrar SweetAlert2 de éxito y luego redirigir
           Swal.fire({
             icon: 'success',
             title: 'Inicio de sesión exitoso',
-            text: 'Bienvenido',
+            text: `Bienvenido ${response[0].NOMBRES} ${response[0].APPATERNO}`,
             showConfirmButton: false,
             timer: 1500
           }).then(() => {
