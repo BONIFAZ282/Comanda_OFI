@@ -94,6 +94,22 @@ h2 {
     font-size: 1.8em;
 }
 
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #262e49;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #1e253a;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
