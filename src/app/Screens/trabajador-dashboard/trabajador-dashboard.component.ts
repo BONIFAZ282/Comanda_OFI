@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TrabajadorService } from 'src/app/Service/trabajador.service';
 import { TrabajadorPorRol } from 'src/app/Config/iType';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-trabajador-dashboard',
@@ -10,12 +12,18 @@ import { TrabajadorPorRol } from 'src/app/Config/iType';
 export class TrabajadorDashboardComponent implements OnInit {
   totalTrabajadores: number = 0;
   trabajadoresPorRol: TrabajadorPorRol[] = [];
+  nombreUsuario: string = '';
+  apellidoPaterno: string = '';
+  inicialNombre: string = '';
 
-  constructor(private trabajadorService: TrabajadorService) { }
+  constructor(private trabajadorService: TrabajadorService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchTotalTrabajadores();
     this.fetchTrabajadoresPorRol();
+    this.nombreUsuario = localStorage.getItem('nombre') || '';
+    this.apellidoPaterno = localStorage.getItem('apellidoPaterno') || '';
+    this.inicialNombre = this.nombreUsuario.charAt(0).toUpperCase();
   }
 
   fetchTotalTrabajadores(): void {
@@ -28,5 +36,10 @@ export class TrabajadorDashboardComponent implements OnInit {
     this.trabajadorService.getTrabajadoresPorRol().subscribe(data => {
       this.trabajadoresPorRol = data;
     });
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

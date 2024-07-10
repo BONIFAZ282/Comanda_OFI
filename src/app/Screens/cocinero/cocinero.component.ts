@@ -4,6 +4,7 @@ import { MesaService } from 'src/app/Service/mesa.service';
 import { TrabajadorService } from 'src/app/Service/trabajador.service';
 import { Pedido, DetallePedido, Mesa, Trabajador } from 'src/app/Config/iType';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cocinero',
@@ -17,13 +18,24 @@ export class CocineroComponent implements OnInit {
   mesas: Mesa[] = [];
   trabajadores: Trabajador[] = [];
 
+  rol: string = '';
+  nombreUsuario: string = '';
+  apellidoPaterno: string = '';
+  inicialNombre: string = '';
+
   constructor(
     private pedidoService: PedidoService,
     private mesaService: MesaService,
-    private trabajadorService: TrabajadorService
+    private trabajadorService: TrabajadorService,
+    private router: Router
   ) { }
 
   ngOnInit() {
+    this.rol = localStorage.getItem('rol') || '';
+    this.nombreUsuario = localStorage.getItem('nombre') || '';
+    this.apellidoPaterno = localStorage.getItem('apellidoPaterno') || '';
+    this.inicialNombre = this.nombreUsuario.charAt(0).toUpperCase();
+
     this.loadPedidos();
     this.loadMesas();
     this.loadTrabajadores();
@@ -89,5 +101,10 @@ export class CocineroComponent implements OnInit {
         });
       });
     }
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

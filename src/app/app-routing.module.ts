@@ -11,6 +11,8 @@ import { TrabajadorComponent } from './Screens/trabajador/trabajador.component';
 import { CargoComponent } from './Screens/cargo/cargo.component';
 import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
+import { GananciasComponent } from './Screens/ganancias/ganancias.component';
+
 import { AuthGuard } from './guards/auth.guard';
 
 
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'cargo', component: CargoComponent, canActivate: [AuthGuard] },
   { path: 'cocinero', component: CocineroComponent, canActivate: [AuthGuard] },
   { path: 'trabajador-dashboard', component: TrabajadorDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'ganancias', component: GananciasComponent, canActivate: [AuthGuard] }
+
 ];
 
 @NgModule({

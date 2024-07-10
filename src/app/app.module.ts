@@ -22,6 +22,7 @@ import { CargoComponent } from './Screens/cargo/cargo.component';
 import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
+import { GananciasComponent } from './Screens/ganancias/ganancias.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { HeaderComponent } from './components/header/header.component';
     CargoComponent,
     CocineroComponent,
     TrabajadorDashboardComponent,
-    HeaderComponent
+    GananciasComponent,
+    HeaderComponent,
+    
   ],
   imports: [
     BrowserModule,

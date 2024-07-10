@@ -1,37 +1,52 @@
 <div class="container">
-  <h2>Pedidos en Curso</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID Pedido</th>
-        <th>Mesa</th>
-        <th>Trabajador</th>
-        <th>Fecha</th>
-        <th>Estado</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let pedido of pedidos">
-        <td>{{ pedido.ID_PEDIDO }}</td>
-        <td>{{ getMesaNumero(pedido.ID_MESA) }}</td>
-        <td>{{ getTrabajadorNombre(pedido.ID_TRABAJADOR) }}</td>
-        <td>{{ pedido.F_PEDIDO }}</td>
-        <td>{{ pedido.ESTADO }}</td>
-        <td>
-          <button (click)="verDetallePedido(pedido)">Ver Detalle</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="../../../assets/logo4.png" alt="" class="logo">
+    </div>
+    <div class="profile">
+      <span class="initial">{{ inicialNombre }}</span>
+      <span class="username">{{ nombreUsuario }} {{ apellidoPaterno }}</span>
+      <a href="#" class="logout" (click)="logout()">
+        <span class="material-icons">logout</span> Logout
+      </a>
+    </div>
+  </nav>
 
-  <div *ngIf="pedidoSeleccionado" class="detalle-pedido">
-    <h3>Detalle del Pedido {{ pedidoSeleccionado.ID_PEDIDO }}</h3>
-    <ul>
-      <li *ngFor="let detalle of detallesPedido">
-        {{ detalle.NOMBRE_PLATO }} - {{ detalle.CANTIDAD }} x S/{{ detalle.PRECIO }} = S/{{ detalle.SUBTOTAL }}
-      </li>
-    </ul>
-    <button (click)="cambiarEstadoPedido('T')">Terminar Pedido</button>
+  <div class="content-container">
+    <h2>Pedidos en Curso</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID Pedido</th>
+          <th>Mesa</th>
+          <th>Trabajador</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pedido of pedidos">
+          <td>{{ pedido.ID_PEDIDO }}</td>
+          <td>{{ getMesaNumero(pedido.ID_MESA) }}</td>
+          <td>{{ getTrabajadorNombre(pedido.ID_TRABAJADOR) }}</td>
+          <td>{{ pedido.F_PEDIDO }}</td>
+          <td>{{ pedido.ESTADO }}</td>
+          <td>
+            <button (click)="verDetallePedido(pedido)">Ver Detalle</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="pedidoSeleccionado" class="detalle-pedido">
+      <h3>Detalle del Pedido {{ pedidoSeleccionado.ID_PEDIDO }}</h3>
+      <ul>
+        <li *ngFor="let detalle of detallesPedido">
+          {{ detalle.NOMBRE_PLATO }} - {{ detalle.CANTIDAD }} x S/{{ detalle.PRECIO }} = S/{{ detalle.SUBTOTAL }}
+        </li>
+      </ul>
+      <button (click)="cambiarEstadoPedido('T')">Terminar Pedido</button>
+    </div>
   </div>
 </div>

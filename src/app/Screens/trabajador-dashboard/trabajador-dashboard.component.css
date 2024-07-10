@@ -1,37 +1,157 @@
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Times New Roman', Times, serif;
+  overflow: hidden; /* Evita el scroll */
+}
+
 .container {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .header {
-    background-color: #262e49;
-    color: white;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    padding: 20px;
-    width: 200px;
-  }
-  
-  .card h2 {
-    margin: 0 0 10px 0;
-  }
-  
-  .card p {
-    font-size: 24px;
-    margin: 0;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-image: url('./../../../assets/fondo3.png');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Estilos para el navbar */
+.navbar {
+  width: 100%;
+  height: 13%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #262e49;
+  color: #fff;
+  position: absolute; /* Posiciona el navbar en la parte superior */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 10px;
+  margin-left: 30px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-right: 30px;
+}
+
+.initial {
+  background-color: #34495e;
+  color: white;
+  font-size: 1.5em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.username {
+  font-size: 1.2em;
+  color: white;
+}
+
+.logout {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.logout .material-icons {
+  margin-right: 10px;
+}
+
+.logout:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para el contenido principal */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Ajusta la posición del contenido */
+  align-items: center;
+  width: 100%;
+  padding-top: 180px; /* Ajustar el margen superior para dejar espacio al navbar */
+  box-sizing: border-box;
+}
+
+.header {
+  background-color: #34495e;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  margin-bottom: 10px;
+  font-size: 2em;
+}
+
+.header h2 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.card p {
+  font-size: 2em;
+  margin: 0;
+  color: #34495e;
+  font-weight: bold;
+}

@@ -1,0 +1,43 @@
+<div class="container">
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <img src="../../../assets/logo4.png" alt="" class="logo">
+      </div>
+      <div class="profile">
+        <span class="initial">{{ inicialNombre }}</span>
+        <span class="username">{{ nombreUsuario }} {{ apellidoPaterno }}</span>
+        <a href="#" class="logout" (click)="logout()">
+          <span class="material-icons">logout</span> Logout
+        </a>
+      </div>
+    </nav>
+  
+    <div class="content-container">
+      <h2>Reporte de Ganancias</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID Pedido</th>
+            <th>Fecha</th>
+            <th>Total Pedido</th>
+            <th>Mesa</th>
+            <th>Trabajador</th>
+            <th>Estado</th>
+            <th>Ganancia Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reporte of reportes">
+            <td>{{ reporte.ID_PEDIDO }}</td>
+            <td>{{ reporte.F_PEDIDO }}</td>
+            <td>{{ reporte.TOTAL }}</td>
+            <td>{{ reporte.NUMERO_MESA }}</td>
+            <td>{{ reporte.NOMBRE_TRABAJADOR }}</td>
+            <td>{{ reporte.ESTADO }}</td>
+            <td>{{ reporte.GANANCIA_TOTAL }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

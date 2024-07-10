@@ -1,12 +1,27 @@
 <div class="container">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <img src="../../../assets/logo4.png" alt="" class="logo">
+    </div>
+    <div class="profile">
+      <span class="initial">{{ inicialNombre }}</span>
+      <span class="username">{{ nombreUsuario }} {{ apellidoPaterno }}</span>
+      <a href="#" class="logout" (click)="logout()">
+        <span class="material-icons">logout</span> Logout
+      </a>
+    </div>
+  </nav>
+
+  <div class="content-container">
     <div class="header">
-      <h1>Trabajadores Totales: {{ totalTrabajadores }}</h1>
+      <h1>Dashboard de Trabajadores</h1>
+      <h2>Trabajadores Totales: {{ totalTrabajadores }}</h2>
     </div>
     <div class="cards">
       <div class="card" *ngFor="let rol of trabajadoresPorRol">
-        <h2>{{ rol.NOM_ROL }}</h2>
+        <h3>{{ rol.NOM_ROL }}</h3>
         <p>{{ rol.CANTIDAD }}</p>
       </div>
     </div>
   </div>
-  
+</div>
