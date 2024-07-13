@@ -12,25 +12,28 @@ import { CargoComponent } from './Screens/cargo/cargo.component';
 import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
 import { GananciasComponent } from './Screens/ganancias/ganancias.component';
+import { Error404Component } from './components/error404/error404.component';
 
 import { AuthGuard } from './guards/auth.guard';
-
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard], data: { expectedRole: 'MESERO' } },
   { path: 'principal', component: PrincipalComponent, canActivate: [AuthGuard] },
-  { path: 'general', component: GeneralComponent, canActivate: [AuthGuard] },
-  { path: 'categoria', component: CategoriaComponent, canActivate: [AuthGuard] },
-  { path: 'mesa', component: MesaComponent, canActivate: [AuthGuard] },
-  { path: 'plato', component: PlatoComponent, canActivate: [AuthGuard] },
-  { path: 'trabajador', component: TrabajadorComponent, canActivate: [AuthGuard] },
-  { path: 'cargo', component: CargoComponent, canActivate: [AuthGuard] },
-  { path: 'cocinero', component: CocineroComponent, canActivate: [AuthGuard] },
-  { path: 'trabajador-dashboard', component: TrabajadorDashboardComponent, canActivate: [AuthGuard] },
-  { path: 'ganancias', component: GananciasComponent, canActivate: [AuthGuard] }
-
+  { path: 'general', component: GeneralComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'categoria', component: CategoriaComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'mesa', component: MesaComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'plato', component: PlatoComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'trabajador', component: TrabajadorComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'cargo', component: CargoComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'cocinero', component: CocineroComponent, canActivate: [AuthGuard], data: { expectedRole: 'COCINERO' } },
+  { path: 'trabajador-dashboard', component: TrabajadorDashboardComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'ganancias', component: GananciasComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
+  { path: 'access-denied', component: AccessDeniedComponent },
+  { path: 'error404', component: Error404Component },
+  { path: '**', redirectTo: '/error404' } // Ruta comodín para el error 404
 ];
 
 @NgModule({

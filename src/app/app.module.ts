@@ -23,6 +23,8 @@ import { CocineroComponent } from './Screens/cocinero/cocinero.component';
 import { TrabajadorDashboardComponent } from './Screens/trabajador-dashboard/trabajador-dashboard.component';
 import { HeaderComponent } from './components/header/header.component';
 import { GananciasComponent } from './Screens/ganancias/ganancias.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { Error404Component } from './components/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { GananciasComponent } from './Screens/ganancias/ganancias.component';
     TrabajadorDashboardComponent,
     GananciasComponent,
     HeaderComponent,
+    AccessDeniedComponent,
+    Error404Component,
     
   ],
   imports: [
