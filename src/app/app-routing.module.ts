@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'ganancias', component: GananciasComponent, canActivate: [AuthGuard], data: { expectedRole: 'ADMINISTRATIVO' } },
   { path: 'access-denied', component: AccessDeniedComponent },
   { path: 'error404', component: Error404Component },
-  { path: '**', redirectTo: '/error404' } // Ruta comodín para el error 404
+  { path: '**', redirectTo: '/error404' }
 ];
 
 @NgModule({
