@@ -155,3 +155,22 @@ html, body {
   color: #34495e;
   font-weight: bold;
 }
+
+.button-container {
+  margin-top: 20px;
+}
+
+.ganancias-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #34495e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ganancias-button:hover {
+  background-color: #2c3e50;
+}

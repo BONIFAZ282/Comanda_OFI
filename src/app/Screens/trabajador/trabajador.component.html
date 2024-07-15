@@ -28,23 +28,61 @@
         </div>
     </div>
     <div class="content">
-        <app-header></app-header>
 
+        <app-header></app-header>
         <main id="main-content">
-            <div class="inputs-section">
-                <input type="text" [(ngModel)]="newTrabajador.DOCUMENTO" placeholder="Documento*">
-                <input type="text" [(ngModel)]="newTrabajador.NOMBRES" placeholder="Nombre*">
-                <input type="text" [(ngModel)]="newTrabajador.APPATERNO" placeholder="Ap. Paterno*">
-                <input type="text" [(ngModel)]="newTrabajador.APMATERNO" placeholder="Ap. Materno*">
-                <input type="text" [(ngModel)]="newTrabajador.TELEFONO" placeholder="Teléfono*">
-                <input type="text" [(ngModel)]="newTrabajador.CORREO" placeholder="Correo*">
-                <select [(ngModel)]="newTrabajador.ID_ROL" class="form-control">
-                    <option *ngFor="let rol of roles" [value]="rol.ID_ROL">{{ rol.NOM_ROL }}</option>
-                </select>
-                <input type="password" [(ngModel)]="newTrabajador.CONTRASENIA" placeholder="Contraseña*">
-                <button (click)="agregarTrabajador()">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
-                <button *ngIf="editMode" (click)="cancelarEdicion()">Cancelar</button>
-            </div>
+            <form #trabajadorForm="ngForm" (ngSubmit)="agregarTrabajador(trabajadorForm)">
+                <div class="inputs-section">
+                    <input type="text" name="documento" [(ngModel)]="newTrabajador.DOCUMENTO" placeholder="Documento*" required minlength="8" maxlength="8" pattern="^[0-9]*$">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['documento']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['documento']?.errors?.['required']">Documento es obligatorio</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['documento']?.errors?.['pattern']">Documento debe contener solo números</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['documento']?.errors?.['minlength'] || trabajadorForm.controls['documento']?.errors?.['maxlength']">Documento debe tener 8 dígitos</ng-container>
+                    </div>
+                    
+                    <input type="text" name="nombres" [(ngModel)]="newTrabajador.NOMBRES" placeholder="Nombre*" required pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['nombres']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['nombres']?.errors?.['required']">Nombre es obligatorio</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['nombres']?.errors?.['pattern']">Nombre debe contener solo letras</ng-container>
+                    </div>
+                    
+                    <input type="text" name="appaterno" [(ngModel)]="newTrabajador.APPATERNO" placeholder="Ap. Paterno*" required pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['appaterno']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['appaterno']?.errors?.['required']">Apellido Paterno es obligatorio</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['appaterno']?.errors?.['pattern']">Apellido Paterno debe contener solo letras</ng-container>
+                    </div>
+                    
+                    <input type="text" name="apmaterno" [(ngModel)]="newTrabajador.APMATERNO" placeholder="Ap. Materno*" required pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['apmaterno']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['apmaterno']?.errors?.['required']">Apellido Materno es obligatorio</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['apmaterno']?.errors?.['pattern']">Apellido Materno debe contener solo letras</ng-container>
+                    </div>
+                    
+                    <input type="text" name="telefono" [(ngModel)]="newTrabajador.TELEFONO" placeholder="Teléfono*" required minlength="9" maxlength="9" pattern="^[0-9]*$">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['telefono']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['telefono']?.errors?.['required']">Teléfono es obligatorio</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['telefono']?.errors?.['pattern']">Teléfono debe contener solo números</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['telefono']?.errors?.['minlength'] || trabajadorForm.controls['telefono']?.errors?.['maxlength']">Teléfono debe tener 9 dígitos</ng-container>
+                    </div>
+                    
+                    <input type="email" name="correo" [(ngModel)]="newTrabajador.CORREO" placeholder="Correo*" required email>
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['correo']?.errors" class="error-message">Correo es obligatorio y debe ser válido</div>
+                    
+                    <select name="rol" [(ngModel)]="newTrabajador.ID_ROL" class="form-control" required>
+                        <option *ngFor="let rol of roles" [value]="rol.ID_ROL">{{ rol.NOM_ROL }}</option>
+                    </select>
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['rol']?.errors" class="error-message">Rol es obligatorio</div>
+                    
+                    <input type="password" name="contrasenia" [(ngModel)]="newTrabajador.CONTRASENIA" placeholder="Contraseña*" required minlength="6">
+                    <div *ngIf="trabajadorForm.submitted && trabajadorForm.controls['contrasenia']?.errors" class="error-message">
+                        <ng-container *ngIf="trabajadorForm.controls['contrasenia']?.errors?.['required']">Contraseña es obligatoria</ng-container>
+                        <ng-container *ngIf="trabajadorForm.controls['contrasenia']?.errors?.['minlength']">Contraseña debe tener al menos 6 caracteres</ng-container>
+                    </div>
+                    
+                    <button type="submit">{{ editMode ? 'Actualizar' : 'Agregar' }}</button>
+                    <button *ngIf="editMode" type="button" (click)="cancelarEdicion()">Cancelar</button>
+                </div>
+            </form>
             <div class="table-section">
                 <table>
                     <thead>

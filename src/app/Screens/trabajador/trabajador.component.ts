@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { TrabajadorService } from 'src/app/Service/trabajador.service';
 import { RolService } from 'src/app/Service/rol.service';
 import { Trabajador, Rol } from 'src/app/Config/iType';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-trabajador',
@@ -65,36 +66,46 @@ export class TrabajadorComponent implements OnInit {
     });
   }
 
-  agregarTrabajador() {
-    if (this.editMode) {
-      this.actualizarTrabajador();
+  agregarTrabajador(trabajadorForm: NgForm) {
+    if (trabajadorForm.valid) {
+        if (this.editMode) {
+            this.actualizarTrabajador();
+        } else {
+            this.trabajadorService.crearTrabajador(this.newTrabajador).subscribe(response => {
+                Swal.fire({
+                    icon: response.icon,
+                    title: 'MENSAJE DEL SISTEMA',
+                    text: response.text
+                });
+                if (response.statusCode === '201') {
+                    this.listarTrabajadores();
+                    this.cancelarEdicion(); // Resetear el formulario
+                }
+            });
+        }
     } else {
-      this.trabajadorService.crearTrabajador(this.newTrabajador).subscribe(response => {
+        Swal.fire({
+            icon: 'error',
+            title: 'MENSAJE DEL SISTEMA',
+            text: 'Por favor, complete todos los campos obligatorios.',
+        });
+    }
+}
+
+  actualizarTrabajador() {
+    if (this.validarFormulario()) {
+      this.trabajadorService.actualizarTrabajador(this.newTrabajador).subscribe(response => {
         Swal.fire({
           icon: response.icon,
           title: 'MENSAJE DEL SISTEMA',
           text: response.text
         });
-        if (response.statusCode === '201') {
+        if (response.statusCode === '202') {
           this.listarTrabajadores();
-          this.cancelarEdicion(); // Resetear el formulario
+          this.cancelarEdicion();
         }
       });
     }
-  }
-
-  actualizarTrabajador() {
-    this.trabajadorService.actualizarTrabajador(this.newTrabajador).subscribe(response => {
-      Swal.fire({
-        icon: response.icon,
-        title: 'MENSAJE DEL SISTEMA',
-        text: response.text
-      });
-      if (response.statusCode === '202') {
-        this.listarTrabajadores();
-        this.cancelarEdicion();
-      }
-    });
   }
 
   editarTrabajador(trabajador: Trabajador) {
@@ -140,23 +151,22 @@ export class TrabajadorComponent implements OnInit {
 
   eliminarTrabajador(id: number) {
     this.trabajadorService.eliminarTrabajador(id).subscribe(response => {
-        Swal.fire({
-            icon: response.icon,
-            title: 'MENSAJE DEL SISTEMA',
-            text: response.text
-        });
-        if (response.statusCode === '200') {
-            this.data = this.data.filter(item => item.ID_TRABAJADOR !== id); // Eliminar el trabajador de la tabla
-        }
+      Swal.fire({
+        icon: response.icon,
+        title: 'MENSAJE DEL SISTEMA',
+        text: response.text
+      });
+      if (response.statusCode === '200') {
+        this.data = this.data.filter(item => item.ID_TRABAJADOR !== id); // Eliminar el trabajador de la tabla
+      }
     }, error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se puede eliminar el trabajador'
-        });
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se puede eliminar el trabajador'
+      });
     });
-}
-
+  }
 
   paginatedData() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -177,5 +187,42 @@ export class TrabajadorComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  validarFormulario(): boolean {
+    if (!this.newTrabajador.DOCUMENTO || this.newTrabajador.DOCUMENTO.length !== 8) {
+      Swal.fire('Error', 'El documento debe tener 8 caracteres', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.NOMBRES) {
+      Swal.fire('Error', 'El nombre es requerido', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.APPATERNO) {
+      Swal.fire('Error', 'El apellido paterno es requerido', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.APMATERNO) {
+      Swal.fire('Error', 'El apellido materno es requerido', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.TELEFONO || this.newTrabajador.TELEFONO.length !== 9) {
+      Swal.fire('Error', 'El teléfono debe tener 9 caracteres', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.CORREO || !this.validarCorreo(this.newTrabajador.CORREO)) {
+      Swal.fire('Error', 'El correo no es válido', 'error');
+      return false;
+    }
+    if (!this.newTrabajador.CONTRASENIA || this.newTrabajador.CONTRASENIA.length < 6) {
+      Swal.fire('Error', 'La contraseña debe tener al menos 6 caracteres', 'error');
+      return false;
+    }
+    return true;
+  }
+
+  validarCorreo(correo: string): boolean {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(correo);
   }
 }

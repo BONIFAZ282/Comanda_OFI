@@ -42,4 +42,8 @@ export class TrabajadorDashboardComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  navigateToGanancias() {
+    this.router.navigate(['/ganancias']);
+  }
 }

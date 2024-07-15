@@ -125,6 +125,22 @@ export class MenuComponent implements OnInit {
     return trabajador ? trabajador.NOMBRES : '';
   }
 
+  confirmarPedido() {
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "Está a punto de finalizar el pedido",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, finalizar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.finalizarPedido();
+      }
+    });
+  }
+
   finalizarPedido() {
     const pedidoData = {
       ID_MESA: this.ID_MESA,
